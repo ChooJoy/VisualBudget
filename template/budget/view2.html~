@@ -1,0 +1,48 @@
+<html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "style.css" %}" />
+    <title>Бюджеты для всех</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static "js/kickstart.js" %}"></script> <!-- KICKSTART -->
+    <link rel="stylesheet" href="{% static "css/kickstart.css" %}" media="all" /> <!-- KICKSTART -->
+<script type="text/javascript" src="{% static "bubbletree/js/base/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "bubbletree/js/base/raphael-min.js" %}"></script>
+<script type="text/javascript" src="{% static "bubbletree/js/base/jquery.qtip.js" %}"></script>
+<script type="text/javascript" src="{% static "bubbletree/js/base/script-treemap.js" %}"></script>
+
+
+
+<script>
+var data = {{ json_obj|safe }}
+</script>
+</head>
+
+
+<body onload="draw(data, history)">
+<nav class="navbar">
+
+<a class="hide-phone" id="logo"><i class="icon-home"></i></a>
+
+    <ul>
+        <li class="first">
+            <a href="/">Главная</a>
+        </li>
+        <li class="last">
+            <a href="/">О проекте</a>
+        </li>
+</nav>
+<div class="space"></div>
+<div class="grid">
+    <div class="column">
+
+
+
+<div id="treemap" style="width: 100%; height: 100%">
+
+
+
+    </div>
+</div>
+<div class="clear"></div>
+</html>

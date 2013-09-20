@@ -1,0 +1,106 @@
+{% extends "base-main.html" %}
+
+{% load staticfiles %}
+{% block js %}
+
+    <script src="{% static "js/base/jquery.js" %}"></script>
+    <script src="{% static "js/map/init.js" %}"></script> 
+    <script src="{% static "js/map/name_id_path.js" %}"></script> 
+    <script src="{% static "js/base/raphael-min.js" %}"></script>
+    <script src="{% static "js/base/jquery.qtip.js" %}"></script>
+    <link href="{% static "css/map/style.css" %}" rel="stylesheet" media="screen">
+    <!-- Put this script tag to the <head> of your page -->
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
+
+    <script>
+        var region_data = {{region_data|safe}}
+    </script>
+
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header" id="banner">
+
+        <div class="row">
+<div class="bs-example">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Внимание!</h4>
+                <p>Проект находится на стадии альфа-теста, поэтому убедительная просьба на кнопочки Like не нажимать и ссылки на него нигде не давать.</p>
+                <p>Стадия альфа-тестирования предположительно закончится 20 сентября.</p>
+                <p>Спасибо за понимание.</p>
+              </div>
+            </div>
+          <div class="col-lg-6">
+            <h1>Загружаем Excel-файл...</h1>
+            <p class="lead">...получаем JSON, CSV, несколько видов визуализации бюджета и благодарность жителей России!</p>
+          </div>
+          <div class="col-lg-6">
+            <div class="bsa well">
+                <h3>Загружено бюджетов: <a href="/all/">{{num_docs}}</a></h3>
+                <h4>Из них федеральных: <a href="/federal/">{{num_fed_docs}}</a></h4>
+                <h4>Из них региональных: <a href="/regional/">{{num_reg_docs}}</a></h4>
+                <h4>Из них муниципальных: <a href="/local/">{{num_loc_docs}}</a></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row" style="text-align:center;">
+
+
+                <div id="map-column"></div>
+    </div>
+
+    <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="type">Последние загрузки</h1>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-example">
+                <h3>Федеральные</h3>
+                {% if fed_docs %}
+                <ul>
+                {% for document in fed_docs %}
+                    <li><b>{{ document.get_year_display }}</b> | <a href="../budget/{{ document.id }}">{{ document.authority_name }}</a>
+                {% endfor %} 
+                {% endif %}             
+            </div>     
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-example">
+                <h3>Региональные</h3>
+                {% if reg_docs %}
+                <ul>
+                {% for document in reg_docs %}
+                    <li><b>{{ document.get_year_display }}</b>| <a href="/region/{{document.region.code_rus}}">{{document.region.name}}</a> | <a href="/budget/{{ document.id }}">{{ document.authority_name }}</a>
+                {% endfor %}              
+                {% endif %}
+            </div>
+
+          </div>
+          <div class="col-lg-4">
+            <h3>Муниципальные</h3>
+            {% if loc_docs %}
+                <ul>
+                {% for document in loc_docs %}
+                    <li><b>{{ document.get_year_display }}</b>| <a href="/region/{{document.region.code_rus}}">{{document.region.name}}</a> | <a href="/budget/{{ document.id }}">{{ document.authority_name }}</a>
+                {% endfor %}              
+                {% endif %}
+          </div>
+            
+          </div>
+        </div>
+        
+
+        
+
+{% endblock %}

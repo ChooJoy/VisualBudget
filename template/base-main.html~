@@ -1,0 +1,138 @@
+<html>
+<head>
+{% load staticfiles %}
+<title>Открытый бюджет | Visual Budget</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<meta name="description" content="Открытый бюджет - Visual Budget">
+<meta name="keywords" content="Открытый бюджет, Электронный бюджет, визуализация, Открытое правительство, Открытые данные, Visual, Budget, Электронное правительство, электронная демократия">
+<meta name="author" content="Stanislav Shakirov">
+<meta charset="UTF-8">
+<link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "bootstrap/css/bootswatch.min.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "css/style.css" %}" rel="stylesheet" media="screen">
+<link rel="icon" type="image/png" href="{% static "favicon4.ico" %}" />
+
+<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      VK.init({apiId: 3874766, onlyWidgets: true});
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44073752-1', 'visualbudget.ru');
+  ga('send', 'pageview');
+</script>
+{% block js %} {% endblock %}
+
+</head>
+
+{% block body_tag %}<body>{% endblock %}
+<div id="fb-root"></div>
+
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=458021214280126";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand"><img src="{% static "logo.svg" %}" height="40px" id="logo"></a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="/all/" id="themes">Бюджеты <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a tabindex="-1" href="/all/">Все</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="/federal/">Федеральные</a></li>
+                <li><a tabindex="-1" href="/regional/">Региональные</a></li>
+                <li><a tabindex="-1" href="/local/">Муниципальные</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/map/">Карта</a>
+            </li>            
+<!--            <li><a href="/where/">Где взять бюджет?</a></li> -->
+            <li>
+              <a href="/about/">О проекте</a>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url add %}" id="add"><b>Добавить бюджет</b></a></li>
+            <li><a href="/help/" id="help-menu"><b>Как помочь проекту</b></a></li>
+            <li><a href="/donate/" id="donate"><b>Donate</b></a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+ <div class="container">
+
+        {% block content %}{% endblock %}
+<hr>
+<footer style="margin: 3em 0 3em 0;">
+<div class="row">
+          <div class="col-lg-4">
+<!-- Put this div tag to the place, where the Like block will be -->
+<div id="vk_like"></div>
+<script type="text/javascript">
+VK.Widgets.Like("vk_like", {type: "button", height: 24});
+</script>
+<div class="fb-like" data-href="http://visualbudget.ru" data-width="100" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://visualbudget.ru" data-text="Мне понравился портал Открытый Бюджет - Visual Budget" data-lang="ru" data-related="choojoy_pp">Твитнуть</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'ru'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+          </div>
+          <div class="col-lg-4" style="text-align:center;">
+            <!-- Open Content Link -->
+<a href="http://opendefinition.org/">
+  <img alt="This material is Open Content" border="0"
+  src="http://assets.okfn.org/images/ok_buttons/oc_80x15_blue.png" />
+</a><br>
+          Открытый бюджет<br>
+          Visual Budget - 2013
+<!-- /Open Content Link -->
+
+          </div>
+          <div class="col-lg-4" style="text-align:right;">
+            Проект сообщества <a href="http://i-graph.org"><img src="http://choojoy.ru/img/i-graph.svg" width="50px"></a><br>
+            Автор Станислав Шакиров aka <a href="https://choojoy.ru">choojoy</a>
+          </div>
+</div>
+</footer>
+</div>
+</body>
+</html>

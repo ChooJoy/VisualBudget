@@ -1,0 +1,126 @@
+{% extends "base-main.html" %}
+{% load staticfiles %}
+
+{% block js %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+  $(function() {
+    $( document ).tooltip({ position: { my: "left-300 top", at: "left top" } });
+  });
+  </script>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url add %}" method="post" enctype="multipart/form-data" class="bs-example form-horizontal">
+ <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-example">
+            {% csrf_token %}             
+            {{ form.non_field_errors }}
+            {{ form.docfile.label_tag }} {{ form.docfile.help_text }}
+            {{ form.docfile.errors }}
+            {{ form.docfile }}
+
+            {{ form.in_out.label_tag }}           
+            {{ form.in_out }}
+            {{ form.plan_fact.label_tag }}
+            {{ form.plan_fact }}
+
+            <div id="data_budget">
+            {{ form.data_budget.label_tag }}<br>
+            {{ form.data_budget }}
+            </div>
+            {{ form.fed_region_local.label_tag }} 
+            {{ form.fed_region_local }}
+            <div id="region">
+            {{ form.region.label_tag }}
+            {{ form.region }}  
+            </div>
+             </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-example">
+                <div id="local_name">
+                {{ form.local_name.label_tag }}
+                {{ form.local_name }}
+                </div>
+                {{ form.authority_name.label_tag }} 
+                {{ form.authority_name }}
+                {{ form.year.label_tag }} 
+                {{ form.year }}
+                {{ form.period.label_tag }}
+                {{ form.period }}
+                {{ form.unit.label_tag }} 
+                {{ form.unit }}
+                {{ form.source.label_tag }}
+                {{ form.source }}
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-example">
+                {{ form.sheet_number.label_tag }}
+                {{ form.sheet_number }}
+                {{ form.name_column.label_tag }} 
+                {{ form.name_column }}
+                {{ form.amount_column.label_tag }}
+                {{ form.amount_column }}
+                {{ form.sum_row.label_tag }} 
+                {{ form.sum_row }}
+                {{ form.start_budget.label_tag }} 
+                {{ form.start_budget }}
+                {{ form.finish_budget.label_tag }}
+                {{ form.finish_budget }}
+                
+             </div>
+          </div>
+    </div>
+
+    <br><br>    
+
+    <div class="row">
+          <div class="col-lg-8">
+            {{ form.description.label_tag }}
+            {{form.description}}     
+          </div>
+    
+          <div class="col-lg-4">
+                <p align="center" style="margin-top: 120px;"><input type="submit" value="Загрузить" class="btn btn-lg btn-default"/></p>    
+          </div>
+    </div>         
+              
+       </form>
+<script>
+document.getElementById('region').style.display = 'none';
+document.getElementById('local_name').style.display = 'none';
+
+
+function Hide() {
+
+    if(document.getElementById('level').options[document.getElementById('level').selectedIndex].value == "1") {
+         document.getElementById('region').style.display = 'none';
+         document.getElementById('local_name').style.display = 'none';
+    }
+    if(document.getElementById('level').options[document.getElementById('level').selectedIndex].value == "2") {
+         document.getElementById('region').style.display = '';
+         document.getElementById('local_name').style.display = 'none';
+    }
+    if(document.getElementById('level').options[document.getElementById('level').selectedIndex].value == "3") {
+         document.getElementById('region').style.display = '';
+         document.getElementById('local_name').style.display = '';
+    }
+}
+
+
+window.onload = function() {
+    document.getElementById('level').onchange = Hide;
+
+};
+
+</script>
+{% endblock %}

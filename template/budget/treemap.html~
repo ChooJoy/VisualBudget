@@ -1,0 +1,96 @@
+{% extends "base-main.html" %}
+
+{% load static %}
+{% block js %}
+<script type="text/javascript" src="{% static "js/base/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "js/base/raphael-min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/base/jquery.qtip.js" %}"></script>
+<script type="text/javascript" src="{% static "js/treemap/script-treemap.js" %}"></script>
+<link href='http://fonts.googleapis.com/css?family=Philosopher&subset=cyrillic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700&subset=cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+<script>
+var data = {{ json_obj|safe }}
+</script>
+
+{% endblock %}
+
+{% block body_tag %}
+<body onload="draw(data, history)">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3>{{ doc.authority_name }}</h3>
+            <h4>{{ doc.get_year_display }} год</h4>
+            {% if doc.period == 0 %}
+               <b>Период: год</b><br>
+            {% endif %}    
+            <b>{{ doc.get_fed_region_local_display}}</b><br><br>            
+            План/факт: {{ doc.get_plan_fact_display }}<br>
+            Доходы/расходы: {{ doc.get_in_out_display }}<br>
+
+            {% if doc.description != "" %}
+                <br>
+                <b>Описание</b><br>
+                {{ doc.description }}
+            {% endif %}  
+      
+            <br>
+            <h4>Скачать:</h4>
+            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">XLS</button></a> 
+          </div>
+          <div class="col-lg-6">
+            {% if doc.fed_region_local != '1' %}
+            <div class="bsa well-region">
+                <div style="display: block-inline">
+                <div style="float:right">
+                    <img src="http://choojoy.ru/{{region.flag}}" >
+                </div>
+                {% if region != 0 %}
+                <div>
+                    <h3>{{ region.name }}</h3>
+                    <h4>Административный центр: город {{region.capital}}</h4>
+                    {{region.fedokr}}<br>
+                    {{region.econokr}}<br>
+                    <b>Площадь:</b> {{region.square}} км<sup>2</sup><br>
+                    <b>Население:</b> {{region.people}} человек<br>
+                    <b>Код субъекта РФ:</b> {{region.code_rus}}<br>
+                    <b>Код по ОКАТО:</b> {{region.code_okato}}<br>
+                    <b>Код ISO:</b> {{region.code_iso}}
+                </div>
+                {% endif %}
+                </div>
+            </div>
+           {% endif %}
+          </div>
+        </div>
+      </div>
+
+<a name="vis"></a>
+<div class="row">
+    <div class="col-lg-12">
+        <h2 id="nav-pills">Бюджет</h2>
+            <div class="bs-example">
+              <ul class="nav nav-pills">
+                <li><a href="/budget/{{ doc.id }}#vis">Таблица</a></li>
+                <li class="active"><a href="#">TreeMap</a></li>
+                <li><a href="/budget/bubble/{{ doc.id }}#vis">BubbleTree</a></li>
+                <li class="disabled"><a href="#">BubbleCharts</a></li>
+                <li class="disabled"><a href="#">BubbleCharts</a></li>
+              </ul>
+            </div>
+    </div>
+</div>
+<br><br>
+<div class="row">
+          <div class="col-lg-12">
+                <div id="treemap" style="width: 100%; height: 80%" onload="draw(data, history)">
+                </div>            
+          </div>
+</div>        
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "base-main.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<h1>Пожертвовать</h1>
+<br>
+Если вы хотите поддержать проект финансово или даже выбрали, развитие какого функционала вас интересует в первую очередь - выберите один из следующих способов для совершения пожертвования:
+<br>
+<br>
+<h3>Яндекс.Деньги</h3>
+<iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?uid=41001587835939&amp;default-sum=100&amp;targets=%D0%9D%D0%B0+%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5+%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0+%D0%B8%D0%BB%D0%B8+%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE+%D0%B8%D0%B7+%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D1%85+%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2+&amp;target-visibility=on&amp;project-name=%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%B9+%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82+-+Visual+Budget&amp;project-site=http%3A%2F%2Fvisualbudget.ru&amp;button-text=01&amp;comment=on&amp;hint=" width="450" height="206"></iframe>
+<br><br>
+<h3>PayPal</h3>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="4AGEXDQT49D8Q">
+<input type="image" src="https://www.paypalobjects.com/ru_RU/RU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — более безопасный и легкий способ оплаты через Интернет!">
+<img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+<br>
+<h3>WebMoney</h3>
+R227185375796<br>
+Z333341789787<br>
+E231681754760<br>
+X343258355703
+<br>
+<h3>АльфаБанк</h3>
+40817810906100018481<br>
+Шакиров Станислав Игоревич
+<br>
+<hr>
+Если вы хотите использовать какой либо другой способ - <a href="/contacts/">свяжитесь</a> с нами
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base-main.html" %}
+{% extends "base-map-russia.html" %}
+
+{% load staticfiles %}
+{% block js %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="digits">
+    Загружено бюджетов: <a href="/all/">{{num_docs}}</a><br>
+    Из них федеральных: <a href="/federal/">{{num_fed_docs}}</a><br>
+    Из них региональных: <a href="/regional/">{{num_reg_docs}}</a><br>
+    Из них муниципальных: <a href="/local/">{{num_loc_docs}}</a><br>
+    </div>
+    <div class="column">
+        
+        <div id="map-column">
+
+        </div>
+
+        <div class="last-column">
+            {% if documents %}
+                <ul>
+                {% for document in documents %}
+                    <li><b>{{ document.get_year_display }}</b> |
+                    {% if document.fed_region_local != '1' %}
+                       <font color="blue">{{ document.region }}</font> |
+                    {% endif %}
+        
+                    {{ document.authority_name }}: <a href="../budget/bubble/{{ document.id }}">BubbleTree</a> | <a href="../budget/tree/{{ document.id }}">TreeMap</a> | <a href="../budget/csv/{{ document.id }}">CSV</a> | <a href="../budget/json/{{ document.id }}">JSON</a></li>
+
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No documents.</p>
+            {% endif %}
+            <div>
+                <a href="{% url add %}">Добавить бюджет</a>
+            </div>        
+        </div>
+
+        
+    </div>
+</div>
+
+<div class="legend">
+    <div id="one">Загрузите и распознайте бюджет из Excel-файла</div>
+    <div id="two">Получите распознанный бюджет в машиночитаемом виде: XML, CSV, JSON</div>
+    <div id="three">Посмотрите загруженный бюджет в табличном виде или его визуализацию</div>
+
+</div>
+{% endblock %}

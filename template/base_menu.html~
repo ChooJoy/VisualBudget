@@ -1,0 +1,12 @@
+<nav class="navbar">
+
+<a class="hide-phone" id="logo"><i class="icon-home"></i></a>
+
+    <ul>
+        <li class="first">
+            <a href="/">Главная</a>
+        </li>
+        <li class="last">
+            <a href="/">О проекте</a>
+        </li>
+</nav>

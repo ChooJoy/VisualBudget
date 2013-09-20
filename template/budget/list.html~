@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% load static %}
+
+    {% if documents %}
+        <ul>
+        {% for document in documents %}
+            <li><b>{{ document.docfile.name }}:</b> <a href="../budget/bubble/{{ document.id }}">BubbleTree</a> | <a href="../budget/{{ document.id }}?f=tree">TreeMap</a> | <a href="../budget/{{ document.id }}?f=csv">CSV</a> | <a href="../budget/{{ document.id }}?f=json">JSON</a></li>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No documents.</p>
+    {% endif %}
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url list %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table><tr><td>                
+            <p>{{ form.non_field_errors }}</p>
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+            <p>
+                {{ form.docfile.errors }}
+                {{ form.docfile }}</p>
+
+             <p>   {{ form.in_out }}    </p>
+             <p>   {{ form.plan_fact }}</p></td><td>
+             <p>Номер страницы в Excel-файле:<br> {{ form.sheet_number }}</p>
+             <p>Номер колонки с кодом(если есть):<br>   {{ form.code_column }}</p>
+             <p>Номер колонки с наименованием:<br>   {{ form.name_column }}</p>
+             <p>Номер колонки с суммой:<br>  {{ form.amount_column }}</p></td><td>
+             <p>Строка с общей суммой бюджета: <br> {{ form.sum_row }}</p>
+             <p>С какой строки начинается бюджет:<br> {{ form.start_budget }}</p>
+             <p>Какая последняя строка бюджета:<br> {{ form.finish_budget }}</p></td></tr>
+             <tr>
+             <td colspan="3">
+             <p align="center"><input type="submit" value="Upload" /></p>
+             </td></tr></table> 
+       </form>
+{% endblock %}

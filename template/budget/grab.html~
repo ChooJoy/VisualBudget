@@ -1,0 +1,9 @@
+{{selected_text}}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/get_file/" method="post">
+{% csrf_token %}
+<input type="text" name="message" id="message" /></p>
+<input type="submit" value="Распознать" />
+</form>

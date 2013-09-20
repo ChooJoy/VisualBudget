@@ -1,0 +1,14 @@
+    <script src="{% static "map/jquery.js" %}"></script>
+    <script src="{% static "map/name_id_path.js" %}"></script> 
+    <script src="{% static "map/raphael.js" %}"></script>
+    <script src="{% static "map/jquery.qtip.js" %}"></script>
+    <script src="{% static "map/init.js" %}"></script> 
+
+    <script>
+        var region_data = {{region_data|safe}}
+    </script>
+
+</head>
+
+<body>
+

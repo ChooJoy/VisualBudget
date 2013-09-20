@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<h2>Такой страницы не найдено</h2>
+
+{% endblock %}

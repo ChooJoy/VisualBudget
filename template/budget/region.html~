@@ -1,0 +1,98 @@
+{% extends "base-main.html" %}
+
+
+{% block content %}
+{% load static %}
+
+<div class="page-header" id="banner">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3>Документов загружено: {{ documents|length }}</h3>
+            <h4>Региональных: {{num_reg}}</h4>
+            <h4>Муниципальных: {{num_loc}}</h4> 
+          </div>
+          <div class="col-lg-6">
+            <div class="bsa well-region">
+                <div style="display: block-inline">
+                <div style="float:right">
+                    <img src="http://choojoy.ru/{{region.flag}}" >
+                </div>
+                <div>
+                    <h3>{{ region.name }}</h3>
+                    <h4>Административный центр: город {{region.capital}}</h4>
+                    {{region.fedokr}}<br>
+                    {{region.econokr}}<br>
+                    <b>Площадь:</b> {{region.square}} км<sup>2</sup><br>
+                    <b>Население:</b> {{region.people}} человек<br>
+                    <b>Код субъекта РФ:</b> {{region.code_rus}}<br>
+                    <b>Код по ОКАТО:</b> {{region.code_okato}}<br>
+                    <b>Код ISO:</b> {{region.code_iso}}
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% if documents %}
+
+    <div class="regdocs">
+        {% if num_reg > 0 %}        
+            <h4>Региональные бюджеты:</h4>
+            <table  class="table table-striped table-bordered table-hover">
+                <tr>
+                <th>Год</th>
+                <th>Название органа власти</th>
+                <th>Доходы/расходы</th>
+                <th>План/факт</th>
+                <th>Ссылка</th>
+                </tr>
+        {% for document in documents %}
+            {% if document.fed_region_local == '2' %}
+            <tr>
+                <td>{{ document.get_year_display}}</td>
+                <td>{{ document.authority_name }}</td> 
+                <td>{{ document.get_in_out_display }}</td>
+                <td>{{ document.get_plan_fact_display }}</td>
+                <td><a href="../budget/{{ document.id}}">Посмотреть</a></td>
+            <tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+        {% endif %}
+        
+    </div>
+    <div class="mundocs">
+        {% if num_loc > 0 %}
+             <h4>Муниципальные бюджеты:</h4>
+            <table  class="table table-striped table-bordered table-hover">
+                <tr>
+                <th>Год</th>
+                <th>Название органа власти</th>
+                <th>Доходы/расходы</th>
+                <th>План/факт</th>
+                <th>Ссылка</th>
+                </tr>
+        {% for document in documents %}
+            {% if document.fed_region_local == '3' %}
+            <tr>
+                <td>{{ document.get_year_display}}</td>
+                <td>{{ document.authority_name }}</td> 
+                <td>{{ document.get_in_out_display }}</td>
+                <td>{{ document.get_plan_fact_display }}</td>
+                <td><a href="../budget/{{ document.id}}">Посмотреть</a></td>
+            <tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+        {% endif %}
+        
+    </div>
+
+{% else %}
+<hr>
+<div class="nodocs">
+Для этого региона бюджетов пока нет.
+</div>
+{% endif %}
+{% endblock %}
