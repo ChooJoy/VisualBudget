@@ -1,0 +1,8 @@
+from django.core.management.base import BaseCommand, CommandError
+from example.polls.models import Poll
+
+class Command(BaseCommand):
+    args = '<path path ...>'
+    help = 'Модуль разбора бюджетных доходов'
+
+    def handle(self, *args, **options):
