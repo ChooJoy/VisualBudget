@@ -145,9 +145,9 @@ def add(request):
             
             excel_parser = ExcelParser()
             temp_region = 0
-            if excel_parser != []:
-                json_obj = excel_parser.read_excel(newdoc)
+            flag_of_end, json_obj = excel_parser.read_excel(newdoc)
                 
+            if flag_of_end == 0:
                 newdoc.json_obj = json_obj
                 if request.POST['region'] != "":
                     temp_region = int(request.POST['region'])
@@ -156,11 +156,10 @@ def add(request):
                 else: 
                     temp_region = 0
                 newdoc.save()            
-    
-                # Redirect to the document list after POST
                 return render_to_response('budget/budget.html', {'region': temp_region, 'doc': newdoc, 'json_obj': json_obj})
-            else:
-                return render_to_response('budget/add.html', {'form': form, 'msg': 'Либо вы неправильно указали строки бюджета, либо ваш бюджет не сходится'},context_instance=RequestContext(request))
+            elif flag_of_end == 1:
+                newdoc.delete()                    
+                return render_to_response('static/error.html')            
     else:
         form = DocumentForm() # A empty, unbound form
 

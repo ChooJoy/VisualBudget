@@ -27,7 +27,7 @@
 <div class="bs-example">
               <div class="alert alert-dismissable alert-warning">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4>Внимание!</h4>
+                <h4>Коллеги,</h4>
                 <p>Проект находится на стадии альфа-теста, поэтому убедительная просьба на кнопочки Like не нажимать и ссылки на него нигде не давать.</p>
                 <p>Стадия альфа-тестирования предположительно закончится 20 сентября.</p>
                 <p>Спасибо за понимание.</p>
