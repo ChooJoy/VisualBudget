@@ -67,19 +67,18 @@ class ExcelParser(object):
         for elem in list_elems:
             elem['deep'] = '1'  
 
-        basic_list = make_deep(list_elems)
+        flag_of_end, basic_list = make_deep(list_elems)
 
-#        print list_elems
+#        print flag_of_end
 
         json_obj = make_json(basic_list)
         
         csv_budget = make_csv(basic_list)
 
-#        print csv_budget
         excel_name.csv_obj = csv_budget
         excel_name.save()
 
-        return json_obj
+        return flag_of_end, json_obj
 
 
 def make_csv(csv_budget):
@@ -147,30 +146,12 @@ def make_deep(children_list):
 
     stop_loop = 0
 
-    base_summ = children_list[0]['amount']
-    first_count = 1
-    summ_other = 0
-
-    while first_count<len(children_list):
-        summ_other += children_list[first_count]['amount']
-        first_count += 1
-
-    print base_summ, summ_other
-
-    if base_summ == summ_other:
-        first_count = 1
-        while first_count<len(children_list):
-            children_list[first_count]['parent'] = 'id0'
-            first_count += 1
-
-        return children_list
-
 
     list_elems = children_list 
     list_id = []
     count_elem = len(list_elems) - 1
 
-    while len(list_elems) > 1 and stop_loop < 100000:
+    while len(list_elems) > 1 and stop_loop < 10000:
         
         children_list = find_children(list_elems, children_list, count_elem)        
 
@@ -193,17 +174,14 @@ def make_deep(children_list):
 
         list_elems = second_list
 
-        #if stop_loop == 999:
-        #    return []
 
         stop_loop += 1
-#    for elem in second_list:
-#        print elem['id'], elem['name'], elem['amount']
 
-    #if len(list_elems) > 1:
-    #    children_list = []
 
-    return children_list
+    if stop_loop == 10000:
+        return 1, children_list
+    else:
+        return 0, children_list
 
 
 def find_children(list_elems, children_list, count_elem):
