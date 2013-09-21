@@ -192,6 +192,7 @@ function get_text_amount(amount) {
     return textAmount;
 }
 
+
 function draw(data_json, history) 
 {
 
@@ -216,7 +217,7 @@ function draw(data_json, history)
         var legend = paper.rect(0, offset, width, 25);
 
         var attributes = {
- 	                 fill: history[count].color,
+ 	                 fill: '#119ce2',
  	                 stroke: '#ffffff',
 	                 'stroke-width': 2,
 	                 'stroke-linejoin': 'round'
@@ -305,6 +306,7 @@ function draw(data_json, history)
 	
 	actualData = calculateCoordsByRatio(tmWidth, tmHeight, ratioArray, actualData, rub2px, paper);
 
+    actualData = make_colors(actualData);
 
 
 	for(var i=0; i<actualData.length; i++)

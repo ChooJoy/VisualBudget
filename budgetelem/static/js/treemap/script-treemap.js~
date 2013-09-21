@@ -192,6 +192,20 @@ function get_text_amount(amount) {
     return textAmount;
 }
 
+function make_colors(actualData) {
+
+ 
+
+	for(var i=0; i<actualData.length; i++)
+		{
+        actualData[i].color = colors_json[i%18];
+        };	
+
+
+    return actualData;
+}
+
+
 function draw(data_json, history) 
 {
 
@@ -216,7 +230,7 @@ function draw(data_json, history)
         var legend = paper.rect(0, offset, width, 25);
 
         var attributes = {
- 	                 fill: history[count].color,
+ 	                 fill: '#119ce2',
  	                 stroke: '#ffffff',
 	                 'stroke-width': 2,
 	                 'stroke-linejoin': 'round'
@@ -257,9 +271,16 @@ function draw(data_json, history)
         if (qtip_flag_history == 1){
         $(t.node).qtip({ content: { text: history[count].name },			// подключаем тултипы
 	            style: {
-	                background: '#000000',
-	                color: '#ffffff',
-	                border: { width: 6, radius: 3, color: '#f00' }
+	                padding: 5,
+                    background: '#ddd',
+                    color: 'black',
+                    textAlign: 'center',
+                    border: {
+                        width: 1,
+                        radius: 0,
+                        color: '#0c0c0c'
+                    },
+                    tip: 'topLeft',
 	            },
 	            position: {
 			target: 'mouse',
@@ -298,6 +319,7 @@ function draw(data_json, history)
 	
 	actualData = calculateCoordsByRatio(tmWidth, tmHeight, ratioArray, actualData, rub2px, paper);
 
+    actualData = make_colors(actualData);
 
 
 	for(var i=0; i<actualData.length; i++)
@@ -467,9 +489,16 @@ function draw(data_json, history)
         
 		$(t.node).qtip({ content: { text: actualData[i].name + '<br><br>' + textAmount},			// подключаем тултипы
 	            style: {
-	                background: '#000000',
-	                color: '#ffffff',
-	                border: { width: 6, radius: 3, color: '#f00' }
+	                padding: 5,
+                    background: '#ddd',
+                    color: 'black',
+                    textAlign: 'center',
+                    border: {
+                        width: 1,
+                        radius: 0,
+                        color: '#0c0c0c'
+                    },
+                    tip: 'topLeft',
 	            },
 	            position: {
 			target: 'mouse',

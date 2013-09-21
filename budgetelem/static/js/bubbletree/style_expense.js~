@@ -5,7 +5,7 @@
             new BubbleTree({
                 data: data,
                 container: '.bubbletree',
-                bubbleType: 'plain',
+                bubbleType: 'donut',
                 bubbleStyles: {
                     'fb': {                                              //taxonomy
                         'all': {                                        //name of the node/child

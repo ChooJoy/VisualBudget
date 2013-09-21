@@ -1,0 +1,35 @@
+var colors_json = 
+['#66CC99',
+'#FF6633',
+'#FFCC66',
+'#9900CC',
+'#CCFF33',
+'#CC9966',
+'#FF9966',
+'#FF3333',
+'#CC3366',
+'#FF66FF',
+'#FF9933',
+'#9966FF',
+'#3333CC',
+'#339999',
+'#339966',
+'#339933',
+'#33CC33',
+'#999999'];
+
+
+
+function make_colors(actualData) {
+
+ 
+
+	for(var i=0; i<actualData.length; i++)
+		{
+        actualData[i].color = colors_json[i%18];
+        };	
+
+
+    return actualData;
+}
+
