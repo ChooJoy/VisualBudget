@@ -18,3 +18,7 @@ margin-right: 50px;
 #help {
 margin-top: 25px;
 }
+
+.error {
+color: red;
+}
