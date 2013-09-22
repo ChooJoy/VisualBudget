@@ -99,7 +99,7 @@ var children_list = [];
 
 function get_text_amount(amount) {
 
-        if (amount < 1000) {textAmount = amount.toString() + " руб."} 
+        if (amount < 1000) {textAmount = amount.toString() + " руб"} 
         else if ((amount < 1000000)&&(amount > 1000)) {textAmount = (amount/1000).toFixed(1).toString() + " тыс"}
         else if ((amount < 1000000000)&&(amount > 1000000)) {textAmount = (amount/1000000).toFixed(1).toString() + " млн"}
         else if ((amount < 1000000000000)&&(amount > 1000000000)) {textAmount = (amount/1000000000).toFixed(1).toString() + " млрд"}

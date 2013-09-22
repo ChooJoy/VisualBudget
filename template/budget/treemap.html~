@@ -80,7 +80,7 @@ var data = {{ json_obj|safe }}
                 <li class="active"><a href="#">TreeMap</a></li>
                 <li><a href="/budget/bubble/{{ doc.id }}#vis">BubbleTree</a></li>
                 <li class="disabled"><a href="#">BubbleCharts</a></li>
-                <li class="disabled"><a href="#">BubbleCharts</a></li>
+                <li class="disabled"><a href="#">OneGrain</a></li>
               </ul>
             </div>
     </div>
