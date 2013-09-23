@@ -30,7 +30,7 @@
       
             <br>
             <h4>Скачать:</h4>
-            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">XLS</button></a> 
+            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">Источник</button></a> 
           </div>
           <div class="col-lg-6">
             {% if doc.fed_region_local != '1' %}
@@ -80,6 +80,7 @@
                     <script>
 
 var data = {{ json_obj|safe }};
+
 
 //javascript:$(\'.' + data.id + '\').style.display:inline;
 //document.getElementByClassName(data.id).style.display = "inline"
@@ -150,13 +151,15 @@ document.write('</table>');
 
 function find_children(className) {
 
+    children_list = [];
+
     list = document.getElementsByClassName(className);
     for (var i0 = 0; i0<list.length; i0++) {
         children_list.push(list[i0].id);
         }
 
 
-    for (var k = 0; k<=children_list.length; k++) {
+    for (var k = 0; k<children_list.length; k++) {
         list = document.getElementsByClassName(children_list[k]);
         for (var i = 0; i<list.length; i++) {
             children_list.push(list[i].id);
@@ -169,7 +172,7 @@ function find_children(className) {
 
 function open_rows(className) {
 
-                children_list = [];
+                element = document.getElementById(className);
                 
                 list = document.getElementsByClassName(className);            
 

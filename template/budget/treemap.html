@@ -42,7 +42,7 @@ var data = {{ json_obj|safe }}
       
             <br>
             <h4>Скачать:</h4>
-            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">XLS</button></a> 
+            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">Источник</button></a> 
           </div>
           <div class="col-lg-6">
             {% if doc.fed_region_local != '1' %}

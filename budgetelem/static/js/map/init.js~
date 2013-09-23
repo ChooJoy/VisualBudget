@@ -54,7 +54,7 @@ function getClientHeight()
     }
 
 
-	var r = Raphael(document.getElementById("map-column"), getClientWidth()*0.7, getClientHeight()*0.7),
+	var r = Raphael(document.getElementById("map-column"), getClientWidth()*0.7, getClientHeight()*0.8),
 		attributes = {},
 		arr = new Array();
 

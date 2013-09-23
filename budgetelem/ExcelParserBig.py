@@ -50,6 +50,8 @@ class ExcelParser(object):
 
             name = sh.cell_value(rx, int(excel_name.name_column)-1)
             amount = sh.cell_value(rx, int(excel_name.amount_column)-1)
+            if amount == "": amount = 0
+        
             try:                
                 amount = unicodedata.normalize('NFKD', amount).encode('ascii','ignore')
                 amount = amount.replace(" ", "").replace(",", ".")
