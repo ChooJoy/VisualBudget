@@ -1,3 +1,6 @@
+
+
+
 function roundCoords(actualData) 
 {
 for(var i=0; i<actualData.lenght;i++)
@@ -92,6 +95,16 @@ function calculateRectRatio(actualData, ratioArray, width, height, p)
 
 function calculateCoordsByRatio(width, height, ratioArray, actualData, rub2px) // исправить это!
 {
+
+    if (actualData.length == 1) {
+        actualData[0].cx = 0;
+        actualData[0].cy = 0;
+        actualData[0].width = width;
+        actualData[0].height = height;
+        return actualData;                
+    }
+
+
 	flagRatio = 0;      //флаг определяет ориентацию пропорции: 1 - ширина - больше, чем высота; 0 - наоборот
 	countRect = 0;		//счетчик количества прямоугольников в ряду
 	cx = 0; 
@@ -195,6 +208,8 @@ function get_text_amount(amount) {
 
 function draw(data_json, history) 
 {
+
+    $(".qtip-defaults").remove();
 
     if (history.length == 0)
     {
@@ -379,12 +394,12 @@ function draw(data_json, history)
                         radius: 0,
                         color: '#0c0c0c'
                     },
-                    tip: 'topLeft',
+                    tip: 'bottomLeft',
 	            },
 	            position: {
 			target: 'mouse',
 	                corner: {
-	                    tooltip: 'topLeft'
+	                    tooltip: 'bottomLeft'
 	                }
 	            }
 	            });
@@ -414,8 +429,6 @@ function draw(data_json, history)
         
 		for (var ii=0; ii<words.length; ii++) {
  			
-            //if (actualData[i].name == "Жилищное хозяйство") 
-            //    { alert(maxWidth); alert(t.getBBox().width); }
             tempText = tempText + " " + words[ii]
             t.attr("text", tempText);  			
             if (t.getBBox().width > maxWidth) {
@@ -427,7 +440,7 @@ function draw(data_json, history)
         
         
         t.attr("text", textText); 
-        if (((countRows)*30 > actualData[i].height)||(maxWidth < 80)) {t.attr("text", ""); textText = "";}
+        if (((countRows)*30 > actualData[i].height)||(maxWidth < 80)||(actualData[i].height < 20)) {t.attr("text", ""); textText = "";}
 
 		t.attr({ "font-size": 13, "font-family": "Philosopher" });
         
@@ -485,12 +498,12 @@ function draw(data_json, history)
                         radius: 0,
                         color: '#0c0c0c'
                     },
-                    tip: 'topLeft',
+                    tip: 'bottomLeft',
 	            },
 	            position: {
 			target: 'mouse',
 	                corner: {
-	                    tooltip: 'topLeft'
+	                    tooltip: 'bottomLeft'
 	                }
 	            },
                 hide: { when: 'mouseout', fixed: true }

@@ -78,7 +78,7 @@ class ExcelParser(object):
         excel_name.csv_obj = csv_budget
         excel_name.save()
 
-        return json_obj
+        return flag_of_end, json_obj
 
 
 def make_csv(csv_budget):
