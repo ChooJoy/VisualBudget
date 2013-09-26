@@ -99,7 +99,7 @@ function getClientHeight()
 
 		$(obj.node).qtip({ 
                 content: { 
-                    text: '<b>' + data_arr[i][3] + '</b><img src="http://choojoy.ru/' + data_arr[i][4] + '" style="float: right;"><br><br>Региональных бюджетов: ' + data_arr[i][5] + '<br>Муниципальных бюджетов: ' + data_arr[i][6], 
+                    text: 'Административный центр: <b>' + data_arr[i][3] + '</b><img src="http://choojoy.ru/' + data_arr[i][4] + '" style="float: right;"><br><br>Региональных бюджетов: ' + data_arr[i][5] + '<br>Муниципальных бюджетов: ' + data_arr[i][6], 
                     title: { 
                         text: data_arr[i][1]
                     }
