@@ -33,6 +33,7 @@ var data = {{ json_obj|safe }}
             <b>{{ doc.get_fed_region_local_display}}</b><br><br>            
             План/факт: {{ doc.get_plan_fact_display }}<br>
             Доходы/расходы: {{ doc.get_in_out_display }}<br>
+            Валюта бюджета: рубли<br>
 
             {% if doc.description != "" %}
                 <br>
