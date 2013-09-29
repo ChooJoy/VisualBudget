@@ -1,0 +1,81 @@
+{% extends "base-main.html" %}
+
+{% load static %}
+
+{% block js %}
+
+    <style>
+    #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 90%;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+
+    <script>
+
+    function detectBrowser() {
+      var useragent = navigator.userAgent;
+      var mapdiv = document.getElementById("map_canvas");
+
+      if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+        mapdiv.style.width = '100%';
+        mapdiv.style.height = '100%';
+      } else {
+        mapdiv.style.width = '600px';
+        mapdiv.style.height = '800px';
+      }
+    }
+
+    var map;
+
+    function initialize() {
+    var myLatlng = new google.maps.LatLng(66.7888889, 93.7752778);
+    var mapOptions = {
+        zoom: 3,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+  
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
+    {% for elem in documents %}
+
+            var myLatLng = new google.maps.LatLng({{elem.local_coords_lat}}, {{elem.local_coords_lng}});
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: '{{elem.local_name}}',
+            });
+            marker.setTitle({{elem.name}});
+            attachSecretMessage(marker, '<a href="/localname/{{elem.local_name}}">{{elem.local_name}}</a>');
+    {% endfor %}
+    }
+    
+    function attachSecretMessage(marker, name) {
+        var infowindow = new google.maps.InfoWindow({
+        content: name
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(marker.get('map'), marker);
+        });
+        }
+
+google.maps.event.addDomListener(window, 'load', initialize);    </script>
+
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ fed_region_local }}</h2>
+
+      <div class="row">
+          <div class="col-lg-12">
+                <div id="map-canvas"></div>
+          </div>
+      </div>
+
+{% endblock %}

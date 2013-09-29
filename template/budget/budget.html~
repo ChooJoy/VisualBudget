@@ -6,13 +6,77 @@
 <script type="text/javascript" src="http://assets.openspending.org/openspendingjs/master/lib/vendor/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="{% static "js/base/jquery-1.5.2.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/base/jquery.history.js" %}"></script>
+{% if doc.fed_region_local == '3' %}
+    <style>
+    #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 295px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+
+    <script>
+    var map;
+    function initialize() {
+    var myLatlng = new google.maps.LatLng({{ doc.local_coords_lat }}, {{ doc.local_coords_lng }});
+    var mapOptions = {
+        zoom: 12,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+  
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: '{{ doc.local_name }}'
+    });
+    }
+
+google.maps.event.addDomListener(window, 'load', initialize);    </script>
+{% endif %}
+
+{% if doc.fed_region_local == '2' %}
+    <style>
+    #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 295px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+
+    <script>
+    var map;
+    function initialize() {
+    var myLatlng = new google.maps.LatLng({{ region.capital_coords_lat }}, {{ region.capital_coords_lng }});
+    var mapOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+  
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: '{{ region.name }}'
+    });
+    }
+
+google.maps.event.addDomListener(window, 'load', initialize);    </script>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
 
 <div class="page-header" id="banner">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <h3>{{ doc.authority_name }}</h3>
             <h4>{{ doc.get_year_display }} год</h4>
             {% if doc.period == 0 %}
@@ -21,7 +85,7 @@
             <b>{{ doc.get_fed_region_local_display}}</b><br><br>            
             План/факт/уточнение: {{ doc.get_plan_fact_display }}<br>
             Доходы/расходы: {{ doc.get_in_out_display }}<br>
-            Валюта бюджета: рубли
+            Валюта бюджета: рубли<br>
 
             {% if doc.description != "" %}
                 <br>
@@ -29,11 +93,8 @@
                 {{ doc.description }}
             {% endif %}  
       
-            <br>
-            <h4>Скачать:</h4>
-            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">Источник</button></a> 
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             {% if doc.fed_region_local != '1' %}
             <div class="bsa well-region">
                 <div style="display: block-inline">
@@ -57,7 +118,20 @@
             </div>
            {% endif %}
           </div>
+          {% if doc.fed_region_local != '1' %}
+          <div class="col-lg-4">
+                <div id="map-canvas"></div>
+          </div>
+          {% endif %}
         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <h4>Скачать:</h4>
+            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.docfile.url }}" target="_blank"><button type="button" class="btn btn-success">Excel</button></a>
+<a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-info">Источник</button></a> 
+            <hr>
+          </div>
       </div>
 
 <a name="vis"></a>

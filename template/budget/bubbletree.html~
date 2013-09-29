@@ -13,6 +13,71 @@
 <script type="text/javascript" src="{% static "js/bubbletree/cofog.js" %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static "css/bubbletree/bubbletree.css" %}"/>
 <script type="text/javascript" src="{% static "js/bubbletree/style_expense.js" %}"></script>
+{% if doc.fed_region_local == '3' %}
+    <style>
+    #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 295px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+
+    <script>
+    var map;
+    function initialize() {
+    var myLatlng = new google.maps.LatLng({{ doc.local_coords_lat }}, {{ doc.local_coords_lng }});
+    var mapOptions = {
+        zoom: 9,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+  
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: '{{ doc.local_name }}'
+    });
+    }
+
+google.maps.event.addDomListener(window, 'load', initialize);    </script>
+{% endif %}
+
+
+{% if doc.fed_region_local == '2' %}
+    <style>
+    #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 295px;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+
+    <script>
+    var map;
+    function initialize() {
+    var myLatlng = new google.maps.LatLng({{ region.capital_coords_lat }}, {{ region.capital_coords_lng }});
+    var mapOptions = {
+        zoom: 7,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+  
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: '{{ region.name }}'
+    });
+    }
+
+google.maps.event.addDomListener(window, 'load', initialize);    </script>
+{% endif %}
+
 
 {% endblock %}
 
@@ -25,7 +90,7 @@ var data = {{ json_obj|safe }}
 
 <div class="page-header" id="banner">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <h3>{{ doc.authority_name }}</h3>
             <h4>{{ doc.get_year_display }} год</h4>
             {% if doc.period == 0 %}
@@ -41,11 +106,8 @@ var data = {{ json_obj|safe }}
                 {{ doc.description }}
             {% endif %}  
       
-            <br>
-            <h4>Скачать:</h4>
-            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">XLS</button></a> 
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             {% if doc.fed_region_local != '1' %}
             <div class="bsa well-region">
                 <div style="display: block-inline">
@@ -69,7 +131,19 @@ var data = {{ json_obj|safe }}
             </div>
            {% endif %}
           </div>
+        {% if doc.fed_region_local != '1' %}
+          <div class="col-lg-4">
+                <div id="map-canvas"></div>
+          </div>
+          {% endif %}
         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <h4>Скачать:</h4>
+            <a href="../budget/csv/{{ doc.id }}"><button type="button" class="btn btn-primary">CSV</button></a>  <a href="../budget/json/{{ doc.id }}"><button type="button" class="btn btn-warning">JSON</button></a>  <a href="{{ doc.source }}" target="_blank"><button type="button" class="btn btn-success">Источник</button></a> 
+            <hr>
+          </div>
       </div>
 
 <a name="vis"></a>

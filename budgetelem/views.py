@@ -18,14 +18,48 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 
+import urllib
+from xml.etree import ElementTree as ET
+
+
+import re, urlparse
+
+def iriToUri(iri):
+    parts= urlparse.urlparse(iri)
+    return urlparse.urlunparse(
+        part.encode('idna') if parti==1 else urlEncodeNonAscii(part.encode('utf-8'))
+        for parti, part in enumerate(parts)
+    )
+
+def urlEncodeNonAscii(b):
+    return re.sub('[\x80-\xFF]', lambda c: '%%%02x' % ord(c.group(0)), b)
+
+
+
 
 def index(request):
     # Load documents for the list page
     documents = Document.objects.all()
     num_docs = len(documents)
-    fed_docs = Document.objects.filter(fed_region_local = "1")
-    reg_docs = Document.objects.filter(fed_region_local = "2")
-    loc_docs = Document.objects.filter(fed_region_local = "3")
+    fed_docs = Document.objects.filter(fed_region_local = "1").order_by('id').reverse()
+    reg_docs = Document.objects.filter(fed_region_local = "2").order_by('id').reverse()
+    loc_docs = Document.objects.filter(fed_region_local = "3").order_by('id').reverse()
+
+
+    documents_local = Document.objects.filter(fed_region_local = '3').order_by('local_name')
+
+    docs_without_repeats = []    
+
+    i=1
+    docs_without_repeats.append(documents_local[i-1])
+    while i < len(documents_local):
+        if documents_local[i-1].local_name == documents_local[i].local_name:
+            pass
+        else:
+            docs_without_repeats.append(documents_local[i])
+        i += 1
+
+
 
     num_fed_docs =  len(fed_docs)
     num_reg_docs =  len(reg_docs)
@@ -46,7 +80,7 @@ def index(request):
     # Render list page with the documents and the form
     return render_to_response(
         'budget/index.html',
-        {'documents': documents, 'region_data': region_data_to_js, 'num_fed_docs': num_fed_docs, 'num_reg_docs': num_reg_docs, 'num_loc_docs': num_loc_docs, 'num_docs': num_docs,  'fed_docs': fed_docs[0:10], 'reg_docs': reg_docs[0:10], 'loc_docs': loc_docs[0:10] })
+        {'documents': documents, 'region_data': region_data_to_js, 'num_fed_docs': num_fed_docs, 'num_reg_docs': num_reg_docs, 'num_loc_docs': num_loc_docs, 'num_docs': num_docs,  'fed_docs': fed_docs[0:10], 'reg_docs': reg_docs[0:10], 'loc_docs': loc_docs[0:10],'loc_documents':loc_docs, 'docs_without_repeats': docs_without_repeats})
 
 def all_budgets(request):
     documents = Document.objects.all()
@@ -76,6 +110,35 @@ def regional(request):
         'budget/budgets.html',
         {'documents': documents, 'fed_region_local': fed_region_local, 'type_budget': type_budget})
 
+def regional_map(request):
+    fed_region_local = "Бюджеты по регионам"
+    type_budget = 2
+
+    reg_docs = Document.objects.filter(fed_region_local = "2")
+    loc_docs = Document.objects.filter(fed_region_local = "3")
+
+
+    regions = Region.objects.all()
+    num_reg_docs =  len(reg_docs)
+    num_loc_docs = len(loc_docs)
+
+
+    region_data_to_js = []    
+
+    for elem in regions:
+        num_reg_doc = len(Document.objects.filter(region = elem ).filter(fed_region_local = '2'))
+        num_loc_doc = len(Document.objects.filter(region = elem ).filter(fed_region_local = '3'))
+        region_data_to_js.append({'code_iso': elem.code_iso, 'flag': elem.flag, 'capital': elem.capital, 'code_rus': elem.code_rus, 'fedokr': elem.fedokr.name, 'econokr': elem.econokr.name, 'square': elem.square, 'people': elem.people, 'num_loc_doc': num_loc_doc, 'num_reg_doc': num_reg_doc,})
+
+    region_data_to_js = json.dumps(region_data_to_js)
+
+
+
+    return render_to_response(
+        'budget/regional-map.html',
+        {'fed_region_local': fed_region_local, 'type_budget': type_budget, 'region_data': region_data_to_js,})
+
+
 def local(request):
     documents = Document.objects.filter(fed_region_local = '3')
     fed_region_local = "Местные бюджеты"
@@ -84,6 +147,27 @@ def local(request):
     return render_to_response(
         'budget/budgets.html',
         {'documents': documents, 'fed_region_local': fed_region_local, 'type_budget': type_budget})
+
+def local_map(request):
+    documents = Document.objects.filter(fed_region_local = '3').order_by('local_name')
+
+    docs_without_repeats = []    
+
+    i=1
+    docs_without_repeats.append(documents[i-1])
+    while i < len(documents):
+        if documents[i-1].local_name == documents[i].local_name:
+            pass
+        else:
+            docs_without_repeats.append(documents[i])
+        i += 1
+
+    fed_region_local = "Местные бюджеты"
+    type_budget = 3
+
+    return render_to_response(
+        'budget/local-map.html',
+        {'documents': docs_without_repeats, 'fed_region_local': fed_region_local, 'type_budget': type_budget})
 
 
 
@@ -97,6 +181,15 @@ def region(request, region_code):
     return render_to_response(
         'budget/region.html',
         {'documents': documents, 'region': region, 'num_reg':num_reg, 'num_loc':num_loc,})
+
+
+def local_name(request, local_name):
+
+    documents = Document.objects.filter(local_name = local_name)
+
+    return render_to_response(
+        'budget/localname.html',
+        {'documents': documents, 'local_name': local_name,})
 
 
 def budget(request, budget_id):
@@ -155,6 +248,26 @@ def add(request):
                     newdoc.region = temp_region
                 else: 
                     temp_region = 0
+                print newdoc.fed_region_local 
+                if newdoc.fed_region_local == "3":
+                    url_utf = 'https://maps.googleapis.com/maps/api/geocode/xml?address='+ newdoc.local_name +'&sensor=false&language=ru'
+            
+                    feed = urllib.urlopen(iriToUri(url_utf))
+                    tree = ET.parse(feed)
+                    root = tree.getroot()
+    
+                    result = root.find('result')
+                    geometry = result.find('geometry')
+                    location = geometry.find('location')
+                    lat = location.find('lat').text
+                    lng = location.find('lng').text
+        
+                    newdoc.local_coords_lat = lat
+                    newdoc.local_coords_lng = lng
+                else:
+                    newdoc.local_coords_lat = '00.000000'
+                    newdoc.local_coords_lng = '00.000000'
+
                 newdoc.save()            
                 return render_to_response('budget/budget.html', {'region': temp_region, 'doc': newdoc, 'json_obj': json_obj})
             elif flag_of_end == 1:

@@ -274,7 +274,7 @@ function draw(data_json, history)
         $(t.node).qtip({ content: { text: history[count].name },			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {
@@ -386,7 +386,7 @@ function draw(data_json, history)
 		$(obj.node).qtip({ content: { text: actualData[i].name + '<br><br><b>' + textAmount + '</b>'},			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {
@@ -440,7 +440,7 @@ function draw(data_json, history)
         
         
         t.attr("text", textText); 
-        if (((countRows)*30 > actualData[i].height)||(maxWidth < 80)||(actualData[i].height < 50)) {t.attr("text", ""); textText = "";}
+        if (((countRows)*30 > actualData[i].height)||(maxWidth < 80)||(actualData[i].height < 20)) {t.attr("text", ""); textText = "";}
 
 		t.attr({ "font-size": 13, "font-family": "Philosopher" });
         
@@ -490,7 +490,7 @@ function draw(data_json, history)
 		$(t.node).qtip({ content: { text: actualData[i].name + '<br><br>' + textAmount},			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {

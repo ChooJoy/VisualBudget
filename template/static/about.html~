@@ -10,19 +10,21 @@
 <br><br>
 <p>Проект <b>Открытый бюджет - Visual Budget</b> создан с целью сбора, хранения и анализа бюджетной информации Российской Федерации силами волонтеров, гражданских активистов и просто неравнодушных граждан.</p>
 
-<p>Проект призван собрать и перевести в единый машиночитаемый вид все то многообразие бюджетов России, которое находитеся в сети интернет. Сбор и публикация в едином месте всей бюджетной информации поможет сохранить и сделать более доступной для граждан открытую бюджетную информацию, а также, мы надеемся, что повысит уровень гражданского контроля за расходованием бюджетных средств.</p>
+<p>Проект призван собрать и перевести в единый машиночитаемый вид все то многообразие бюджетов России, которое находится в сети интернет. Сбор и публикация в едином месте всей бюджетной информации поможет сохранить и сделать более доступной для граждан открытую бюджетную информацию, а также, мы надеемся, что повысит уровень гражданского контроля за расходованием бюджетных средств.</p>
 
 <p>На данный момент возможна загрузка бюджетной информации в xls-файлах, но в будущем планируется реализовать загрузку xlsx, odt. </p>
 <p>Куда будет развиваться проект можно прочитать на странице <a href="/intentions/">"Что будет дальше"</a>, как можно помочь проекту (не только финансово) можно прочитать в разделе <a href="/help/">"Как помочь проекту"</a></p>
 <br>
 <p>В процессе работы над порталом были использованы технологии:
 <ul>
-    <li><a href="https://github.com/okfn/bubbletree/wiki/Bubble-Tree-Documentation" target="_blank">BubbleTree</a> - разработаного <a href="http://okfn.org" target="_blank">Open Knowledge Foundation</a></li>
+    <li>Django</li>
     <li><a href="http://bootswatch.com/" target="_blank">Bootswatch</a> на базе <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> со шрифтами от <a href="http://www.google.com/fonts/" target="_blank">Google</a>.</li>
+    <li><a href="https://github.com/okfn/bubbletree/wiki/Bubble-Tree-Documentation" target="_blank">BubbleTree</a> - разработаного <a href="http://okfn.org" target="_blank">Open Knowledge Foundation</a></li>
     <li><a href="http://raphaeljs.com/" target="_blank">RaphaelJS</a></li>
+    <li><a href="https://developers.google.com/maps/?hl=ru" target="_blank">Google Maps API 3.0</a></li>
 </ul>
 
-Весь проект, а также скрипты формирования TreeMap и динамических таблиц находятся на <a href="https://github.com/ChooJoy?tab=repositories" target="_blank">GitHub</a>.
+<a href="https://github.com/ChooJoy/VisualBudget" target="_blank">Весь проект</a>, а также скрипты формирования <a href="https://github.com/ChooJoy/treemap" target="_blank">TreeMap</a> и <a href="https://github.com/ChooJoy/table_budget" target="_blank">динамических таблиц</a> находятся на <a href="https://github.com/ChooJoy?tab=repositories" target="_blank">GitHub</a>.
 
 <br><br><br>
 <p>Проект создан Станиславом Шакировым aka <a href="https://choojoy.ru" target="_blank">ChooJoy</a> в рамках проекта <b>Интерактивная инфографика</b> - <a href="http://i-graph.org" target="_blank"><b>i-graph.org</b></a></p>

@@ -1,0 +1,31 @@
+{% extends "base-main.html" %}
+
+{% load static %}
+
+{% block js %}
+    <script src="{% static "js/base/jquery.js" %}"></script>
+    <script src="{% static "js/map/init.js" %}"></script> 
+    <script src="{% static "js/map/name_id_path.js" %}"></script> 
+    <script src="{% static "js/base/raphael-min.js" %}"></script>
+    <script src="{% static "js/base/jquery.qtip.js" %}"></script>
+    <link href="{% static "css/map/style.css" %}" rel="stylesheet" media="screen">
+
+    <script>
+        var region_data = {{region_data|safe}}
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ fed_region_local }}</h2>
+
+    <div class="row" style="text-align:center;">
+
+
+                <div id="map-column"></div>
+    </div>
+
+
+
+{% endblock %}

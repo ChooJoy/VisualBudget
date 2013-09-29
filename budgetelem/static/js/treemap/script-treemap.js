@@ -274,13 +274,13 @@ function draw(data_json, history)
         $(t.node).qtip({ content: { text: history[count].name },			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {
                         width: 1,
                         radius: 0,
-                        color: '#0c0c0c'
+                        color: '#e3e3e3'
                     },
                     tip: 'topLeft',
 	            },
@@ -386,13 +386,13 @@ function draw(data_json, history)
 		$(obj.node).qtip({ content: { text: actualData[i].name + '<br><br><b>' + textAmount + '</b>'},			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {
                         width: 1,
                         radius: 0,
-                        color: '#0c0c0c'
+                        color: '#e3e3e3'
                     },
                     tip: 'bottomLeft',
 	            },
@@ -490,13 +490,13 @@ function draw(data_json, history)
 		$(t.node).qtip({ content: { text: actualData[i].name + '<br><br>' + textAmount},			// подключаем тултипы
 	            style: {
 	                padding: 5,
-                    background: '#ddd',
+                    background: '#f5f5f5',
                     color: 'black',
                     textAlign: 'center',
                     border: {
                         width: 1,
                         radius: 0,
-                        color: '#0c0c0c'
+                        color: '#e3e3e3'
                     },
                     tip: 'bottomLeft',
 	            },
