@@ -15,7 +15,7 @@
 {% block content %}
 {% load static %}
 
-
+{{msg}}
         <!-- Upload form. Note enctype attribute! -->
         <form action="{% url add %}" method="post" enctype="multipart/form-data" class="bs-example form-horizontal">
  <div class="row">
@@ -64,7 +64,7 @@
           </div>
           <div class="col-lg-4">
             <div class="bs-example">
-                {{ form.sheet_number.label_tag }}
+                {{ form.sheet_number.label_tag }} <a href="/helpdoc/" target="_blank"><span class="label label-success">?</span></a>
                 {{ form.sheet_number }}
                 {{ form.name_column.label_tag }} 
                 {{ form.name_column }}
@@ -76,7 +76,6 @@
                 {{ form.start_budget }}
                 {{ form.finish_budget.label_tag }}
                 {{ form.finish_budget }}
-                
              </div>
           </div>
     </div>

@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     #Static pages
     url(r'^help/', 'budgetelem.static_views.help'),
+    url(r'^helpdoc/', 'budgetelem.static_views.helpdoc'),
     url(r'^about/', 'budgetelem.static_views.about'),
     url(r'^contacts/', 'budgetelem.static_views.contacts'),
     url(r'^intentions/', 'budgetelem.static_views.intentions'),    

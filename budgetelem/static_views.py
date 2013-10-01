@@ -17,6 +17,10 @@ def help(request):
 
     return render_to_response('static/help.html')
 
+def helpdoc(request):
+
+    return render_to_response('static/helpdoc.html')
+
 def contacts(request):
 
     return render_to_response('static/contacts.html')

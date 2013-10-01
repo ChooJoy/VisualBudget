@@ -27,4 +27,4 @@ def intentions(request):
 
 def donate(request):
 
-    return render_to_response('static/intentions.html')
+    return render_to_response('static/donate.html')
